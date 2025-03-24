@@ -1,73 +1,61 @@
 \documentclass[ascii]{abook}
 
-% Allowed text encodings: ascii, koi8-r, koi8-u, cp1251, utf-8.
-
-% Some frequently used packages are loaded by the class.
-% If you need a package that is not loaded, you should load it here.
-
 \begin{document}
-
-
-% Please use this template to prepare your abstract.
-% Please note that it should not exceed one page.
-% The file should be renamed using family names of first two coauthors as in the following example: {Doe-Doe.tex}.
-
-% Both TeX and PDF files of your abstract should be sent to {xiv.iacu@gmail.com}
 
 \begin{abstract}
 
-% You should define custom commands here.
-
-% The language of the abstract.
-% Allowed choices: english, ukrainian.
 \selectlanguage{english}
 
-\title{Title}
+\title{Linear Upper Bound on a Segment XOR Cardinality}
 
-% Syntax of the \author command:
-% \author[Short name]{Full name}{Affiliation}{e-mail}
-% <Short name> --- initials of the first name and the last name.
-% It will be used in the table of contents and the index.
-% <Full name> --- name in the complete form preferred by the author, i.e. the first name and the last name.
-% <Affiliation> --- author's affiliation.
-% <e-mail> --- author's e-mail address.
-
-% <Affiliation> and <e-mail> may be left blank.
-
-% You should use \\* (star is mandatory) in the arguments of
-% \title and \author to insert line break.
-
-\author[J.~Doe]{John Doe}
-{Sumy State Pedagogical University named after A.S. Makarenko,\\*
-Sumy, Ukraine.}
-{author\_1@example.com}
-\author[J.~Doe]{Jane Doe}
+\author[N.~Skybytskyi]{Nikita M. Skybytskyi}
 {Taras Shevchenko National University of Kyiv, Kyiv, Ukraine.}
-{author\_2@example.com}
-\author[J.~Doe]{Jim Doe}
-{Institute of Mathematics of National Academy of Sciences of Ukraine,\\*
-Kyiv, Ukraine.}
-{author\_3@example.com}
+{n.skybytskyi@knu.ua}
 
 \maketitle
 
-% The text of the abstract.
-% Avoid bold fonts in the text.
+In theoretical computer science, bitwise XOR (exclusive or) is a fundamental binary operation on nonnegative integers. We study the properties of bitwise XOR of sets, extending concepts from combinatorial set theory \cite{skybytskyi:stanley_enumerative}. Namely, for two sets $X$ and $Y$ of nonnegative integers, we denote $X \oplus Y = \{x \oplus y \mid x \in X, y \in Y\}$.
 
-In the text you may use environments
-{\tt theorem}, {\tt proposition}, {\tt lemma}, {\tt corollary},
-{\tt conjecture}, {\tt definition}, {\tt example}, {\tt remark}
-or their starred variants.
+We focus on XORs of segments of consecutive integers, leveraging insights from algorithmic number theory \cite{skybytskyi:bach_algorithmic}. We use a shorthand notation: $[x, x+k) = \{x, x+1, \dots, x+k-1\}$ for a nonnegative integer $x$ and a positive integer $k$. The following result emerged experimentally:
 
-For labels ({\tt\string\label}, {\tt\string\bibitem})
-you should use unique prefix
-for example, the last name of the (first) author.
+\begin{conjecture*}
+    $|[x, x+k) \oplus [y, y+k)| \le 4(k-1)$ for any positive integer $k$ and nonnegative integers $x, y$.
+\end{conjecture*}
 
-% References (if you use any).
+\begin{remark*}
+    This bound is tight for infinitely many values of $k$. One series of particular interest is $k = 2^m + 2$ with $x = 2^m - 1$ and $y = 3 \cdot 2^m$.
+\end{remark*}
 
-% \begin{thebibliography}{9}
-% \bibitem{user:item1}
-% \end{thebibliography}
+This linear upper bound is much stronger than a naive quadratic upper bound of $|X \oplus Y| \le |X| \cdot |Y| = k^2$. Even though we verified it computationally for all $k \le 2^9 + 2$, we ultimately failed to prove it rigorously. However, we managed to produce a slightly weaker result:
+
+\begin{theorem*}
+    $|[x, x+k) \oplus [y, y+k)| \le 5(k-2)$ for any positive integer $k \ge 5$ and any nonnegative integers $x, y$.
+\end{theorem*}
+% \begin{remark*}
+%     The practical significance of this weaker result is that one cannot consider segments of consecutive integers when looking for xor-combinations with a large span since the resulting size is only $O(k)$ when the maximum for arbitrary sets is $\Theta(k^2)$.
+% \end{remark*}
+
+The following lemmas are central to the proof:
+
+\begin{lemma}
+    For any fixed $k$, the optimization problem $g(k; x, y) = |[x, x+k) \oplus [y, y+k)| \to \max_{x, y}$ has an optimal solution $(x_0, y_0)$ with $x_0, y_0 \le 4k$.
+\end{lemma}
+
+\begin{lemma}
+    If we denote $f(k) = \max_{x, y} g(k; x, y)$ then two inequalities hold: $f(2k) \le 2f(k+1)$ and $f(2k+1) \le 2f(k+1)$, as inspired by \cite{skybytskyi:sedgewick_algorithms}.
+\end{lemma}
+
+The proof of our main result proceeds by induction with the first lemma establishing base cases and the second lemma helping with inductive steps.
+% \begin{remark*}
+%     According to the master theorem, the second lemma alone proves that $f(k) = O(k)$. However, it offers no specific bounds on the constant hidden in big-O notation.
+% \end{remark*}
+
+
+\begin{thebibliography}{9}
+\bibitem{skybytskyi:stanley_enumerative} R. P. Stanley. \emph{Enumerative Combinatorics}. Cambridge University Press, 1997.
+\bibitem{skybytskyi:bach_algorithmic} E. Bach and J. Shallit. \emph{Algorithmic Number Theory: Efficient Algorithms}. MIT Press, 1996.
+\bibitem{skybytskyi:sedgewick_algorithms} R. Sedgewick and K. Wayne. \emph{Algorithms}. Addison-Wesley, 2011.
+\end{thebibliography}
 
 \end{abstract}
 
