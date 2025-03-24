@@ -1,0 +1,28 @@
+\documentclass{SHVpaper}
+\begin{document}
+
+\section{UAVRP with Moving Targets}
+
+\authors{N.~M.~Skybytskyi}
+
+Our study is concerned with the optimization of the trajectory for an unmanned aerial vehicle (UAV) tasked with intercepting a designated array of $n$ linearly moving targets within the $d$-dimensional Euclid
+ean space, where $d \in \{2, 3\}$ in practical scenarios. This problem presents a natural extension of the Unmanned Aerial Vehicle Routing Problem (UAVRP) with Dynamic Depots, as outlined in \cite{dynamic-depots}. Its practical application finds pertinence in military strategy, particularly in orchestrating the routing of drones to engage adversary assets during transit.
+
+The problem under consideration is classified as NP-hard due to its reduction to the Traveling Salesman Problem (TSP) in instances involving zero target velocities. Notably, the problem's complexity is compounded by a nonlocal cost function, where reordering targets can significantly alter temporal arrival sequences and inter-point distances. Consequently, conventional local optimization heuristics, such as the widely employed 2-opt method detailed in \cite{two-opt}, are ill-suited for this problem domain.
+
+\textbf{Theorem}. For all $n > \Gamma^{-1}(2d)$ (which holds for all instances of practical interest), there exists a combination of $n!$ real values such that there does not exist a problem instance with such route lengths. Here $\Gamma^{-1}$ is the inverse of the gamma function, a commonly used extension of the factorial function.
+% \textit{Proof} (sketch): $2dn$ real-valued variables define a problem instance. The length of a route with a fixed order is a continuous function of them as a composition of continuous functions (see \cite{trig-landing} for an explicit form). We obtain the result for $n! > 2dn$ by invariance of domain. The expression in the theorem is just a rearranged form of this inequality.
+
+Therefore, UAVRP with moving targets is not completely devoid of structure. In particular, we explore the insights provided by \cite{trig-landing}, which investigated the function expressing the distance to a rendezvous point with a single mobile target over time. Through our analysis of the compositional nature of these functions and their inherent properties, we outline promising avenues for future research endeavors.
+
+
+\begin{thebibliography}{5}
+\bibitem{dynamic-depots} Горбулін~В.~П., Гуляницький~Л.~Ф., Сергієнко~І.~В. Оптимізація маршрутів команди БПЛА за наявності альтернативних та динамічних депо. \emph{Кібернетика і системний аналіз}. 2020. Т.~56, №~2. С.~31--41.
+\bibitem{two-opt} Croes~G.~A. A Method for Solving Traveling-Salesman Problems. \emph{Operations Research}, 1958, vol.~6, no.~6, pp.~791--812.
+\bibitem{trig-landing} Savuran~H., Karakaya~M. Route Optimization Method for Unmanned Air Vehicle Launched from a Carrier. \emph{Lecture Notes on Software Engineering}. 2015, vol.~3. pp.~279--284. 
+\end{thebibliography}
+
+\subsection{Authors}
+\author{Nikita Skybytskyi}{graduate student of the second year of study, Faculty of Computer Science and Cybernetics, Taras Shevchenko National University of Kyiv, Kyiv, Ukraine}{n.skybytskyi@knu.ua}
+
+\end{document}
