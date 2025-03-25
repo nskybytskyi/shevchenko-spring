@@ -1,0 +1,126 @@
+\documentclass[handout,notheorems]{beamer}
+
+\usepackage[T2A,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{tikz}
+\usepackage{amsthm}
+\newtheorem*{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\hypersetup{unicode=true}
+
+\usetheme{CambridgeUS}
+
+\setbeamercolor{frametitle}{parent=palette primary}
+
+\setbeamercolor{block title}{fg=black,bg=white!60!gray}
+\setbeamercolor{block body}{fg=black,bg=white!90!gray}
+
+\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+
+\setbeamercolor*{section in head/foot}{parent=palette tertiary}
+\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+\setbeamercolor{title}{bg=red!65!black,fg=white}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+% \AtBeginSection[]
+% {
+%     \begin{frame}{Table of Contents}
+%         \tableofcontents[currentsection,hideothersubsections]
+%     \end{frame}
+% }
+
+\institute[KNU]{Taras Shevchenko National University of Kyiv}
+\author[Skybytskyi N.]{Nikita M. Skybytskyi, n.skybytskyi@knu.ua}
+\title[Linear Upper Bound on a Segment XOR Cardinality]{Linear Upper Bound on a Segment XOR Cardinality}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Introduction}
+    \textbf{Bitwise XOR} (exclusive or) is a fundamental operation in theoretical computer science.
+    \begin{itemize}
+        \item We study properties of XOR applied to sets.
+        \item Defined as $X \oplus Y = \{ x \oplus y \mid x \in X, y \in Y \}$.
+        \item Focus on XORs of segments of consecutive integers.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problem Statement}
+    \textbf{Segment Notation:} $[x, x+k) = \{x, x+1, \dots, x+k-1\}$.
+    \begin{block}{Conjecture}
+        $|[x, x+k) \oplus [y, y+k)| \leq 4(k-1)$ for any positive integer $k$ and nonnegative integers $x, y$.
+    \end{block}
+    \textbf{Experimental Observations:} Holds for all $k \leq 2^9 + 2$.
+\end{frame}
+
+\begin{frame}{Key Remark}
+    \begin{block}{Tight Bound}
+        The bound is tight for infinitely many values of $k$.
+        \begin{itemize}
+            \item Example: $k = 2^m + 2$.
+            \item Values: $x = 2^m - 1$, $y = 3 \cdot 2^m$.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Main Result}
+    \begin{block}{Stronger Bound}
+        Our result improves on the naive quadratic upper bound:
+        \[|X \oplus Y| \leq |X| \cdot |Y| = k^2.\]
+    \end{block}
+    \begin{block}{Theorem}
+        $|[x, x+k) \oplus [y, y+k)| \leq 5(k-2)$ for $k \geq 5$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Proof Strategy}
+    \begin{itemize}
+        \item Base cases are established computationally.
+        \item Recursive bounds:
+        \begin{align*}
+            f(2k) &\leq 2f(k+1),\\
+            f(2k+1) &\leq 2f(k+1).
+        \end{align*}
+        \item Inductive proof follows from these inequalities.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Key Lemmas}
+    \begin{lemma}
+        For any fixed $k$, the optimization problem \[ g(k; x, y) = |[x, x+k) \oplus [y, y+k)| \to \max_{x, y} \] has an optimal solution $(x_0, y_0)$ with $x_0, y_0 \leq 4k$.
+    \end{lemma}
+    \begin{lemma}
+        If $f(k) = \max_{x, y} g(k; x, y)$, then:
+        \[ f(2k) \leq 2f(k+1), \quad f(2k+1) \leq 2f(k+1). \]
+    \end{lemma}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Established a linear upper bound on segment XOR cardinality.
+        \item Stronger than naive $O(k^2)$ bound.
+        \item Future work: Refinement of constant factors.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{References}
+    \begin{thebibliography}{9}
+        \bibitem{stanley} R. P. Stanley. \emph{Enumerative Combinatorics}. Cambridge University Press, 1997.
+        \bibitem{bach} E. Bach, J. Shallit. \emph{Algorithmic Number Theory}. MIT Press, 1996.
+        \bibitem{sedgewick} R. Sedgewick, K. Wayne. \emph{Algorithms}. Addison-Wesley, 2011.
+    \end{thebibliography}
+\end{frame}
+
+
+\end{document}
