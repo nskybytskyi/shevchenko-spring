@@ -52,12 +52,19 @@
 \subsection{Definitions}
 
 \begin{frame}
-    \textbf{Bitwise XOR} (exclusive or) is a fundamental operation in theoretical computer science.
-    \begin{itemize}
-        \item We study properties of XOR applied to sets.
-        \item Defined as $X \oplus Y = \{ x \oplus y \mid x \in X, y \in Y \}$.
-        \item Focus on XORs of segments of consecutive integers.
-    \end{itemize}
+    \textbf{Bitwise XOR} (exclusive or) is a fundamental operation in theoretical computer science. Example: $10 \oplus 3$ (in binary):
+    \begin{equation*}
+        \begin{array}{rl}
+            10 &= 1010_2 \\
+             3 &= 0011_2 \\
+            \hline
+            10 \oplus 3 &= 1001_2 = 9
+        \end{array}
+    \end{equation*}
+    \pause
+    \begin{definition}
+        We study properties of XOR applied to sets, defined as $X \oplus Y = \{ x \oplus y \mid x \in X, y \in Y \}$.
+    \end{definition}
 \end{frame}
 
 \subsection{Examples}
@@ -89,14 +96,14 @@
 
 \begin{frame}
     \begin{definition}
-        $[x, x+k) = \{x, x+1, \dots, x+k-1\}$.
+        Focus on XORs of segments of consecutive integers: $[l, r) = \{l, l+1, \dots, r-1\}$.
     \end{definition}
     \pause
     \begin{block}{Problem}
         Given a positive integer $k$, solve $|[x, x+k) \oplus [y, y+k)| \to \max_{x,y}$ over nonnegative integers $x, y$.
     \end{block}
     \pause
-    \begin{block}{Remark}
+    \begin{block}{Remark 1}
         Two subproblems: establish an \textbf{upper bound} and provide an efficient \textbf{construction}. Both experimental and analytical methods are fine.
     \end{block}
 \end{frame}
@@ -110,9 +117,11 @@
         $|[x, x+k) \oplus [y, y+k)| \le 5(k-2)$ for all $k \ge 5$.
     \end{block}
     \pause
-    \begin{block}{Remark}
+    \begin{block}{Remark 2}
         Our result improves on the naive quadratic upper bound:
-        \[|X \oplus Y| \le |X| \cdot |Y| = k^2.\]
+        \begin{equation}
+            |X \oplus Y| \le |X| \cdot |Y| = k^2.
+        \end{equation}
     \end{block}
 \end{frame}
 
@@ -123,7 +132,7 @@
         $|[x, x+k) \oplus [y, y+k)| \le 4(k-1)$ for all $k > 1$.
     \end{block}
     \pause
-    \begin{block}{Remark}
+    \begin{block}{Remark 3}
         This bound is tight for infinitely many values of $k = 2^m + 2$. The construction is $x = 2^m - 1$, $y = 3 \cdot 2^m$.
     \end{block}
 \end{frame}
@@ -134,10 +143,14 @@
 
 \begin{frame}
     \begin{lemma}
-        For any fixed $k$, the optimization problem \[ g(k; x, y) = |[x, x+k) \oplus [y, y+k)| \to \max_{x, y} \] has an optimal solution $(x_0, y_0)$ with $x_0, y_0 \leq 4k$.
+        For any fixed $k$, the optimization problem 
+        \begin{equation}
+            g(k; x, y) = |[x, x+k) \oplus [y, y+k)| \to \max_{x, y}
+        \end{equation}
+        has an optimal solution $(x_0, y_0)$ with $x_0, y_0 \le 4k$.
     \end{lemma}
     \pause
-    \begin{block}{Remark}
+    \begin{block}{Corollary}
         Hence, base cases can be established computationally.
     \end{block}
 \end{frame}
@@ -147,11 +160,19 @@
 \begin{frame}
     \begin{lemma}
         If $f(k) = \max_{x, y} g(k; x, y)$, then:
-        \[ f(2k) \le 2f(k+1), \quad f(2k+1) \le 2f(k+1). \]
+        \begin{equation}
+            f(2k) \le 2f(k+1), \quad f(2k+1) \le 2f(k+1).
+        \end{equation}
     \end{lemma}
     \pause
-    \begin{block}{Remark}
-        Inductive proof follows from these inequalities.
+    \begin{block}{Proof}
+        Inductive proof follows from these inequalities:
+        \begin{equation}
+            \begin{aligned}
+                f(2k) &\le 2f(k+1) \le 5 (2k - 2) \\
+                f(2k+1) &\le 2f(k+1) \le 5 (2k - 1).
+            \end{aligned}
+        \end{equation}
     \end{block}
 \end{frame}
 
